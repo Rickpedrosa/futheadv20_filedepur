@@ -6,7 +6,7 @@ import main.utils.symbolPosition
 fun main(args: Array<String>) {
 //    testStringExtension()
 //    testSubstrAfterBefore()
-    testPlayerBuilding()
+   // testPlayerBuilding()
 }
 
 private fun testStringExtension() {

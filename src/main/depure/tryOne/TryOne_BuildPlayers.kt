@@ -9,14 +9,16 @@ import java.nio.file.Files
 import java.nio.file.Paths
 import java.util.stream.Stream
 import kotlin.streams.asSequence
-import kotlin.streams.toList
 
 fun main() {
     readPlayers()
 }
 
 private fun readPlayers() {
-    val lines: Sequence<Player> = Files.newInputStream(Paths.get("files/source/fifa.txt"))
+    val version = 1
+    val fileToBeRead = "files/source/fifa.txt"
+    val fileToBeWrittenIn = "files/source/fifav20_player${version}.txt"
+    val lines: Sequence<Player> = Files.newInputStream(Paths.get(fileToBeRead))
         .bufferedReader()
         .lines()
         .skip(1)
@@ -46,7 +48,7 @@ private fun readPlayers() {
             )
         }
         .asSequence()
-    File("files/source/fifaTest.txt").bufferedWriter().use { out -> lines.forEach() { out.write("$it \n") } }
+    File(fileToBeWrittenIn).bufferedWriter().use { out -> lines.forEach { out.write("$it \n") } }
 }
 
 
