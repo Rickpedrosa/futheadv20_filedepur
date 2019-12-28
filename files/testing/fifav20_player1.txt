@@ -12,7 +12,7 @@
 {"id":201024,"club":"Napoli","name":"K. Koulibaly","age":28,"nationality":"Senegal","potential":91,"positions":[CB],"value":67500000,"wage":150000,"image":"https://cdn.sofifa.org/players/10/20/201024.png"}
 {"id":202126,"club":"Tottenham Hotspur","name":"H. Kane","age":25,"nationality":"England","potential":91,"positions":[ST],"value":83000000,"wage":220000,"image":"https://cdn.sofifa.org/players/10/20/202126.png"}
 {"id":212831,"club":"Liverpool","name":"Alisson","age":26,"nationality":"Brazil","potential":91,"positions":[GK],"value":58000000,"wage":155000,"image":"https://cdn.sofifa.org/players/10/20/212831.png"}
-{"id":193080,"club":"Manchester United","name":"De Gea","age":28,"nationality":"Spain","potential":90,"positions":[GK],"value":56000000,"wage":205000,"image":"https://cdn.sofifa.org/players/10/20/193080.png"}
+{"id":193080,"club":"Manchester United","name":"De Gea","age":28,"nationality":"Spain","potential":90,"positions":[GK],"value":56000000,"wage":205000,"image ":"https://cdn.sofifa.org/players/10/20/193080.png"}
 {"id":215914,"club":"Chelsea","name":"N. Kanté","age":28,"nationality":"France","potential":90,"positions":[CDM,  CM],"value":66000000,"wage":235000,"image":"https://cdn.sofifa.org/players/10/20/215914.png"}
 {"id":138956,"club":"Juventus","name":"G. Chiellini","age":34,"nationality":"Italy","potential":89,"positions":[CB],"value":24500000,"wage":215000,"image":"https://cdn.sofifa.org/players/10/20/138956.png"}
 {"id":153079,"club":"Manchester City","name":"S. Agüero","age":31,"nationality":"Argentina","potential":89,"positions":[ST],"value":60000000,"wage":300000,"image":"https://cdn.sofifa.org/players/10/20/153079.png"}

@@ -1,7 +1,6 @@
 package test
 
 import main.model.Team
-import main.utils.buildTeam
 import main.utils.symbolPosition
 import java.io.File
 import java.nio.file.Files

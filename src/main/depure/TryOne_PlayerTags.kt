@@ -1,6 +1,6 @@
 @file:Suppress("DuplicatedCode")
 
-package main.depure.tryOne
+package main.depure
 
 import main.utils.writeCollectionContent
 import java.io.File
@@ -10,10 +10,10 @@ import java.util.stream.Stream
 import kotlin.streams.asSequence
 import kotlin.streams.toList
 
-fun main() {
-//    readPlayerTags()
-    trimPlayerTags()
-}
+//fun main() {
+////    readPlayerTags()
+//    trimPlayerTags()
+//}
 
 private fun readPlayerTags() {
     //coma 23

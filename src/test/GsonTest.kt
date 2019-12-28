@@ -2,7 +2,7 @@ package test
 
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
-import main.model.Player
+import main.model.player.Player
 import main.model.Team
 
 fun main() {

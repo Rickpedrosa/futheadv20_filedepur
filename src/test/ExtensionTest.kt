@@ -1,7 +1,7 @@
 package test
 
-import main.model.Player
-import main.model.Tags
+import main.model.player.Player
+import main.model.DataSource
 import main.utils.symbolPosition
 
 fun main(args: Array<String>) {
@@ -9,7 +9,7 @@ fun main(args: Array<String>) {
 //    testSubstrAfterBefore()
     // testPlayerBuilding()
 //    testingTags()
-    Tags.source.forEach(::println)
+    DataSource.tags.forEach(::println)
 }
 
 private fun testStringExtension() {

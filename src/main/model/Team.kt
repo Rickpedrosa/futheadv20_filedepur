@@ -10,7 +10,7 @@ data class Team(
     var logox2: String? = if (id != null) "https://cdn.sofifa.org/teams/2/light/$id.png" else null,
     var logox4: String? = if (id != null) "https://cdn.sofifa.org/teams/4/light/$id.png" else null,
     var logox6: String? = if (id != null) "https://cdn.sofifa.org/teams/6/light/$id.png" else null
-)  {
+) {
     override fun equals(other: Any?): Boolean {
         other as Team
         return other.name == this.name

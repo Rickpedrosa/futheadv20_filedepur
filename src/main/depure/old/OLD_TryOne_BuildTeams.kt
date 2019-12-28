@@ -1,4 +1,4 @@
-package main.depure.tryOne
+package main.depure.old
 
 import main.model.Team
 import main.utils.buildTeam
@@ -9,9 +9,7 @@ import java.nio.file.Paths
 import java.util.stream.Stream
 import kotlin.streams.asSequence
 
-fun main() {
-    createTeams()
-}
+
 private fun createTeams() {
     val sourceOne = "files/testing/teams.txt"
     val sourceTwo = "files/testing/teamsFromSource.txt"
