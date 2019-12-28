@@ -1,7 +1,9 @@
 package main.depure.tryOne
 
 import main.model.Player
-import main.utils.symbolPosition
+import main.model.PlayerBuilder
+import main.model.PlayerBuilderImpl
+import main.utils.writeCollectionContent
 import java.io.*
 import java.nio.file.Files
 import java.nio.file.Paths
@@ -25,29 +27,21 @@ private fun readPlayers() {
             Stream.of(buildPlayer(it))
         }
         .asSequence()
-    File(fileToBeWrittenIn).bufferedWriter().use { out -> lines.forEach { out.write("$it \n") } }
+    File(fileToBeWrittenIn).writeCollectionContent(lines)
 }
 
-fun buildPlayer(it: String): Player {
+fun buildPlayer(line: String): Player {
+    val builder: PlayerBuilder = PlayerBuilderImpl(line)
     return Player(
-        it.substring(0, it.symbolPosition(1)).toLong(),
-        it.substring(it.symbolPosition(9) + 1, it.symbolPosition(10)),
-        it.substring(it.symbolPosition(2) + 1, it.symbolPosition(3)),
-        it.substring(it.symbolPosition(4) + 1, it.symbolPosition(5)).toInt(),
-        it.substring(it.symbolPosition(8) + 1, it.symbolPosition(9)),
-        it.substring(it.symbolPosition(11) + 1, it.symbolPosition(12)).toInt(),
-        if (it.substring(it.symbolPosition(14) + 1, it.symbolPosition(14) + 2) == "\"") {
-            it.substring(
-                it.symbolPosition(1, '"') + 1,
-                it.symbolPosition(2, '"')
-            ).split(",")
-        } else {
-            it.substring(it.symbolPosition(14) + 1, it.symbolPosition(15))
-                .split(",")
-        }
-        ,
-        it.substring(it.symbolPosition(12) + 1, it.symbolPosition(13)).toLong(),
-        it.substring(it.symbolPosition(13) + 1, it.symbolPosition(14)).toLong()
+        builder.getId(),
+        builder.getClub(),
+        builder.getName(),
+        builder.getAge(),
+        builder.getNationality(),
+        builder.getPotential(),
+        builder.getPositions(),
+        builder.getValue(),
+        builder.getWage()
     )
 }
 

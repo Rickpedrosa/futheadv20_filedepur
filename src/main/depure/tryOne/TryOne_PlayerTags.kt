@@ -1,14 +1,18 @@
+@file:Suppress("DuplicatedCode")
+
 package main.depure.tryOne
 
-import main.utils.symbolPosition
+import main.utils.writeCollectionContent
 import java.io.File
 import java.nio.file.Files
 import java.nio.file.Paths
 import java.util.stream.Stream
 import kotlin.streams.asSequence
+import kotlin.streams.toList
 
 fun main() {
-    readPlayerTags()
+//    readPlayerTags()
+    trimPlayerTags()
 }
 
 private fun readPlayerTags() {
@@ -38,5 +42,16 @@ private fun readPlayerTags() {
             }
         }
         .asSequence().toSet()
-    File(fileToBeWrittenIn).bufferedWriter().use { out -> lines.forEach { out.write("$it \n") } }
+    File(fileToBeWrittenIn).writeCollectionContent(lines)
+}
+
+private fun trimPlayerTags() {
+    val file = "files/saved/player_tags.txt"
+    val tags: List<String> = Files.newInputStream(Paths.get(file))
+        .bufferedReader()
+        .lines()
+        .map { it.trim() }
+        .toList()
+    tags.forEach(::println)
+    File(file).writeCollectionContent(tags)
 }

@@ -10,41 +10,7 @@ import java.util.stream.Stream
 import kotlin.streams.asSequence
 
 fun main() {
-    val sourceOne = "files/testing/teams.txt"
-    val sourceTwo = "files/testing/teamsFromSource.txt"
-    val fileToWrite = "files/saved/teams.txt"
 
-    val teamsWithId: List<Team> = Files.newInputStream(Paths.get(sourceOne))
-        .bufferedReader()
-        .lines()
-        .flatMap {
-            println(it)
-            Stream.of(
-                it.buildTeam()
-            )
-        }
-        .asSequence()
-        .toList()
-    val teamsWithoutId: MutableList<Team> = Files.newInputStream(Paths.get(sourceTwo))
-        .bufferedReader()
-        .lines()
-        .flatMap {
-            Stream.of(
-                it.buildTeam()
-            )
-        }
-        .asSequence()
-        .toMutableList()
-    teamsWithId.forEach { u ->
-        run {
-            val teamFound = teamsWithoutId.find { it.name == u.name }
-            teamFound?.id = u.id
-            teamFound?.logox2 = u.logox2
-            teamFound?.logox2 = u.logox4
-            teamFound?.logox2 = u.logox6
-        }
-    }
-    teamsWithoutId.toSet().forEach(::println) // todo salen repetidos arreglar
 }
 
 private fun readTeams() {

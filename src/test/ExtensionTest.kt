@@ -1,13 +1,15 @@
 package test
 
 import main.model.Player
+import main.model.Tags
 import main.utils.symbolPosition
 
 fun main(args: Array<String>) {
 //    testStringExtension()
 //    testSubstrAfterBefore()
     // testPlayerBuilding()
-    testingTags()
+//    testingTags()
+    Tags.source.forEach(::println)
 }
 
 private fun testStringExtension() {

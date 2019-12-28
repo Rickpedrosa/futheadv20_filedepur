@@ -1,9 +1,15 @@
 package main.utils
 
-import java.nio.file.Files
-import java.nio.file.Paths
+import java.io.File
 
-fun readAndWrite() {
-    val source = Files.newInputStream(Paths.get("files/source/fifa.txt"))
+fun <T> File.writeCollectionContent(collection: Sequence<T>) {
+    this.bufferedWriter().use { out -> collection.forEach { out.write("$it\n") } }
+}
 
+fun <T> File.writeCollectionContent(collection: List<T>) {
+    this.bufferedWriter().use { out -> collection.forEach { out.write("$it\n") } }
+}
+
+fun <T> File.writeCollectionContent(collection: Set<T>) {
+    this.bufferedWriter().use { out -> collection.forEach { out.write("$it\n") } }
 }
