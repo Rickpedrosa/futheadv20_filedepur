@@ -12,7 +12,7 @@ data class Team(
     var logox6: String? = if (id != null) "https://cdn.sofifa.org/teams/6/light/$id.png" else null
 ) : SQLInsert {
 
-    fun getLogos(): List<String?> {
+    private fun getLogos(): List<String?> {
         val x2 = if (logox2 != null) "'${this.logox2}'" else null
         val x4 = if (logox4 != null) "'${this.logox4}'" else null
         val x6 = if (logox6 != null) "'${this.logox6}'" else null
