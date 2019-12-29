@@ -1,4 +1,4 @@
-package main.depure.old
+package main.depuration.old
 
 import main.model.Team
 import main.utils.buildTeam

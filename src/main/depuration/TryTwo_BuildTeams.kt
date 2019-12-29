@@ -1,4 +1,4 @@
-package main.depure
+package main.depuration
 
 import com.google.gson.Gson
 import main.model.Team

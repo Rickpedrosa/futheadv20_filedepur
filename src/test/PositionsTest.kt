@@ -1,11 +1,21 @@
 package test
 
+import main.utils.writeCollectionContent
+import java.io.File
 import java.lang.IndexOutOfBoundsException
 import java.nio.file.Files
 import java.nio.file.Paths
+import kotlin.streams.toList
 
 fun main() {
-   // checkIfPositionsAreSame19vs20()
+    // checkIfPositionsAreSame19vs20()
+    val file = "files/saved/positions.txt"
+    val fileContentToUpperCase = Files.newInputStream(Paths.get(file))
+        .bufferedReader()
+        .lines()
+        .map { it.toUpperCase() }
+        .toList()
+    File(file).writeCollectionContent(fileContentToUpperCase)
 }
 
 fun checkIfPositionsAreSame19vs20() {

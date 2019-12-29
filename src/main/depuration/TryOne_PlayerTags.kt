@@ -1,6 +1,6 @@
 @file:Suppress("DuplicatedCode")
 
-package main.depure
+package main.depuration
 
 import main.utils.writeCollectionContent
 import java.io.File

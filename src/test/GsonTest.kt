@@ -7,7 +7,8 @@ import main.model.Team
 
 fun main() {
     val gson = GsonBuilder().setPrettyPrinting().create()
-    testTeamGson(gson)
+//    testTeamGson(gson)
+    print("Pog'loler".replace("'", "\\'"))
 }
 
 private fun testPlayerGson(gson: Gson) {

@@ -14,7 +14,7 @@ class DataSource {
             .bufferedReader()
             .lines()
             .toList()
-        val players: List<Player> = Files.newInputStream(Paths.get("files/testing/fifav20_player1.txt"))
+        val players: List<Player> = Files.newInputStream(Paths.get("files/saved/players.txt"))
             .bufferedReader()
             .lines()
             .flatMap {
@@ -30,5 +30,14 @@ class DataSource {
             }
             .asSequence()
             .toList()
+        val positions = Files.newInputStream(Paths.get("files/saved/positions.txt"))
+            .bufferedReader()
+            .lines()
+            .map { it.toUpperCase() }
+            .toList()
+        val playerPositions = Files.newInputStream(Paths.get("files/saved/player_positions.txt"))
+            .bufferedReader()
+            .lines()
+            .asSequence().toList()
     }
 }

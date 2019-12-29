@@ -1,6 +1,6 @@
 package main.model.player
 
-import main.utils.symbolPosition
+import main.model.SQLInsert
 
 data class Player(
     val id: Long, //blank - 1+1
@@ -13,8 +13,15 @@ data class Player(
     val value: Long, //12+1 - 13
     val wage: Long, //13+1 - 14
     val image: String = "https://cdn.sofifa.org/players/10/20/$id.png"
-)  // todo añadir mas mierda
-{
+) : SQLInsert {
+    override fun getInsertStatement(): String {
+        return "INSERT INTO futhead.teams " +
+                "(id,name,image,nationality,potential,age,club,value,wage) " +
+                "VALUES (${this.id},'${this.name.replace("'", "\\'")}'," +
+                "'${this.image}',${this.potential}," +
+                "${this.age},'${this.club.replace("'", "\\'")}'," +
+                "${this.value},${this.wage});"
+    }
 
     override fun toString(): String {
         return "{\"id\":${this.id}," +
