@@ -1,15 +1,24 @@
 package main.sql.insert
 
 import main.model.DataSource
+import main.utils.DatabaseExt
 import main.utils.symbolPosition
 import main.utils.writeCollectionContent
 import java.io.File
+import java.nio.file.Files
+import java.nio.file.Paths
+import java.util.*
 import java.util.stream.Stream
 import kotlin.streams.toList
 
 fun main() {
+    println("Go!")
     val insert = Inserter
-    insert.insertPlayers()
+//    insert.insertPlayers()
+//    insert.insertPlayerPositions()
+//    insert.insertPositions()
+//    insert.insertTeams()
+    println("DOne!")
 }
 
 object Inserter {
@@ -18,6 +27,19 @@ object Inserter {
         POSITIONS, TEAMS, PLAYER_POSITIONS, PLAYERS
     }
 
+
+    fun addFileContentToDatabase(filePath: String) {
+        println("Start -> ${Date()}")
+        val database = DatabaseExt()
+        Files.newInputStream(Paths.get(filePath))
+            .bufferedReader()
+            .lines().forEach {
+                database.batch.addBatch(it)
+            }
+        database.batch.executeBatch()
+        database.closeConnection()
+        println("Finish -> ${Date()}")
+    }
 
     private fun insert(file: String, table: Tables) {
         val fileToBeWrittenIn = File(file)
@@ -35,7 +57,7 @@ object Inserter {
                 .stream()
                 .flatMap {
                     Stream.of(
-                        "INSERT INTO futhead.positions (position) VALUES" +
+                        "INSERT INTO positions (position) VALUES" +
                                 " ('${it.replace(",", "")}');"
                     )
                 }
@@ -54,7 +76,7 @@ object Inserter {
                 .stream()
                 .flatMap {
                     Stream.of(
-                        "INSERT INTO futhead.teams " +
+                        "INSERT INTO playerpositions " +
                                 "(player_id,pos) " +
                                 "VALUES (${it.substring(0, it.symbolPosition(1))}," +
                                 "'${it.substring(it.symbolPosition(1) + 1)}');"
@@ -74,25 +96,25 @@ object Inserter {
 
     fun insertPositions() {
         val fileToWrite =
-            "src/main/sql/insert/position/futhead_positions.sql"
+            "files/fifa20/insert/futhead_positions.sql"
         insert(fileToWrite, Tables.POSITIONS)
     }
 
     fun insertPlayers() {
         val fileToWrite =
-            "src/main/sql/insert/futhead_players.sql"
+            "files/fifa20/insert/futhead_players.sql"
         insert(fileToWrite, Tables.PLAYERS)
     }
 
     fun insertTeams() {
         val fileToWrite =
-            "/src/main/sql/insert/team/futhead_teams.sql"
+            "files/fifa20/insert/futhead_teams.sql"
         insert(fileToWrite, Tables.TEAMS)
     }
 
     fun insertPlayerPositions() {
         val fileToWrite =
-            "src/main/sql/insert/player_positions.sql"
+            "files/fifa20/insert/futhead_player_positions.sql"
         insert(fileToWrite, Tables.PLAYER_POSITIONS)
     }
 }

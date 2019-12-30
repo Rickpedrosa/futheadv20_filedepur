@@ -15,10 +15,10 @@ data class Player(
     val image: String = "https://cdn.sofifa.org/players/10/20/$id.png"
 ) : SQLInsert {
     override fun getInsertStatement(): String {
-        return "INSERT INTO futhead.teams " +
+        return "INSERT INTO players " +
                 "(id,name,image,nationality,potential,age,club,value,wage) " +
                 "VALUES (${this.id},'${this.name.replace("'", "\\'")}'," +
-                "'${this.image}',${this.potential}," +
+                "'${this.image}','${this.nationality}',${this.potential}," +
                 "${this.age},'${this.club.replace("'", "\\'")}'," +
                 "${this.value},${this.wage});"
     }

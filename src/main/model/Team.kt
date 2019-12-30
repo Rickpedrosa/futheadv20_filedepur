@@ -20,7 +20,7 @@ data class Team(
     }
 
     override fun getInsertStatement(): String {
-        return "INSERT INTO futhead.teams " +
+        return "INSERT INTO teams " +
                 "(name,id,logox2,logox4,logox6,average,eleven_average,quality) " +
                 "VALUES ('${this.name.replace("'", "\\'")}',${this.id}," +
                 "${this.getLogos()[0]}," +
