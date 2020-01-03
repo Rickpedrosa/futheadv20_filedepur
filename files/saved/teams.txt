@@ -695,4 +695,3 @@
 {"id":null,"name":"Finn Harps","average":0.0,"eleven_average":0.0,"quality":0.0,"logox2":null,"logox4":null,"logox6":null}
 {"id":null,"name":"Seongnam FC","average":0.0,"eleven_average":0.0,"quality":0.0,"logox2":null,"logox4":null,"logox6":null}
 {"id":null,"name":"UCD AFC","average":0.0,"eleven_average":0.0,"quality":0.0,"logox2":null,"logox4":null,"logox6":null}
-{"id":null,"name":"Śląsk Wrocław","average":0.0,"eleven_average":0.0,"quality":0.0,"logox2":null,"logox4":null,"logox6":null}

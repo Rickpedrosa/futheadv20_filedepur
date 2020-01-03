@@ -11,7 +11,7 @@ class DatabaseExt(
         "root",
         ""
     ),
-    private val statement: Statement = connection.createStatement(
+    val statement: Statement = connection.createStatement(
         ResultSet.TYPE_SCROLL_INSENSITIVE,
         ResultSet.CONCUR_UPDATABLE
     )

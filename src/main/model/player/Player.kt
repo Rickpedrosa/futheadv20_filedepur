@@ -1,6 +1,8 @@
 package main.model.player
 
 import main.model.SQLInsert
+import main.utils.DatabaseExt
+import java.sql.ResultSet
 
 data class Player(
     val id: Long, //blank - 1+1
@@ -35,4 +37,25 @@ data class Player(
                 "\"wage\":${this.wage}," +
                 "\"image\":\"${this.image}\"}"
     }
+}
+
+fun ResultSet.getPlayersPotentialBySelect(): MutableList<Int> {
+    val potentials: MutableList<Int> = mutableListOf()
+    while (this.next()) {
+        potentials.add(this.getInt(1))
+    }
+    this.close()
+    return potentials
+}
+
+val BENCH_POTENTIAL = fun(club: String): String {
+    return "SELECT pot FROM " +
+            "(SELECT DISTINCT p.name, p.potential AS pot FROM players p WHERE p.club LIKE '${club}' " +
+            "ORDER BY pot DESC LIMIT 18) t  ORDER BY pot ASC LIMIT 7"
+}
+
+val TITULAR_POTENTIAL = fun(club: String): String {
+    return "SELECT pot FROM " +
+            "(SELECT DISTINCT p.name, p.potential AS pot FROM players p WHERE p.club LIKE '${club}' " +
+            "ORDER BY pot DESC LIMIT 18) t LIMIT 11"
 }
