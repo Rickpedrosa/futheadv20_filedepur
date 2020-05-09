@@ -1,0 +1,106 @@
+create table if not exists user
+(
+    username          varchar(100) charset utf8 not null primary key,
+    registration_date varchar(100) charset utf8 not null,
+    email             varchar(125) charset utf8 not null,
+    password          varchar(125) charset utf8 not null
+);
+
+create table if not exists tournament
+(
+    id            bigint unsigned auto_increment not null primary key,
+    name          varchar(100) charset utf8      not null,
+    type          enum ('KO', 'LG') charset utf8 not null,
+    creation_date varchar(100) charset utf8      not null
+);
+
+create table if not exists day
+(
+    id       bigint unsigned auto_increment not null primary key,
+    day_date varchar(100) charset utf8      not null,
+    id_tour  bigint unsigned                not null,
+    INDEX tournament_id_day (id_tour),
+    foreign key (id_tour) references tournament (id)
+        on update cascade on delete CASCADE
+);
+
+create table if not exists match_types
+(
+    # id -> enum ('CM', 'HRL', 'HRS', 'HRHV', 'HRFT', 'HRN', 'SW', 'KNG', 'MB')
+    id          varchar(20) charset utf8  not null primary key,
+    name        varchar(100) charset utf8 not null,
+    description varchar(255) charset utf8 not null
+);
+
+create table if not exists match_event
+(
+    id          bigint unsigned           not null primary key,
+    name        varchar(100) charset utf8 not null,
+    description varchar(255) charset utf8 null
+);
+
+create table if not exists tournament_user
+(
+    id_tour bigint unsigned           not null,
+    id_user varchar(100) charset utf8 not null,
+    money   bigint unsigned,
+    primary key (id_tour, id_user),
+    foreign key (id_user) references user (username) ON UPDATE CASCADE ON DELETE CASCADE,
+    foreign key (id_tour) references tournament (id) ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+create table if not exists tournament_player
+(
+    id_tour   bigint unsigned not null,
+    id_player int unsigned    not null,
+    primary key (id_tour, id_player),
+    foreign key (id_player) references players (id) ON UPDATE CASCADE ON DELETE CASCADE,
+    foreign key (id_tour) references tournament (id) ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+create table if not exists match_fifa
+(
+    id         bigint unsigned auto_increment not null primary key,
+    id_day     bigint unsigned                not null,
+    id_tour    bigint unsigned                not null,
+    time_start varchar(100) charset utf8      not null,
+    time_end   varchar(100) charset utf8      null default '',
+    score_home int unsigned,
+    score_away int unsigned,
+    id_event   bigint unsigned                not null,
+    id_type    varchar(20) charset utf8       not null,
+    foreign key (id_day) references day (id) ON UPDATE CASCADE ON DELETE CASCADE,
+    foreign key (id_tour) references tournament (id) ON UPDATE CASCADE ON DELETE CASCADE,
+    foreign key (id_event) references match_event (id) ON UPDATE CASCADE,
+    foreign key (id_type) references match_types (id) ON UPDATE CASCADE
+);
+
+create table if not exists match_user
+(
+    id_user  varchar(100) charset utf8 not null,
+    id_match bigint unsigned           not null,
+    away     boolean,
+    home     boolean,
+    primary key (id_user, id_match),
+    foreign key (id_match) references match_fifa (id) ON UPDATE CASCADE ON DELETE CASCADE,
+    foreign key (id_user) references user (username) ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+create table if not exists match_player
+(
+    id_player int unsigned    not null,
+    id_match  bigint unsigned not null,
+    primary key (id_player, id_match),
+    foreign key (id_match) references match_fifa (id) ON UPDATE CASCADE ON DELETE CASCADE,
+    foreign key (id_player) references players (id) ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+create table if not exists match_stats_goal
+(
+    id         bigint unsigned auto_increment not null primary key,
+    id_player  int unsigned                   not null,
+    id_match   bigint unsigned                not null,
+    score_time varchar(200) charset utf8      not null,
+    foreign key (id_match) references match_fifa (id) ON UPDATE CASCADE ON DELETE CASCADE,
+    foreign key (id_player) references players (id) ON UPDATE CASCADE ON DELETE CASCADE
+);
