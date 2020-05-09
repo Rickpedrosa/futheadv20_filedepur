@@ -1,4 +1,4 @@
-package main.sql.insert.team
+package main.sql.update.teams
 
 import main.model.DataSource
 import main.model.player.BENCH_POTENTIAL
@@ -11,43 +11,44 @@ fun main() {
     val database = DatabaseExt()
     DataSource.teams.forEach {
         database.statement.executeUpdate(
-            getQueryStatementToSetTeamQuality(database, it.name.replace("'", "\\'"))
+            getQueryStatementToSetTeamQuality(
+                database,
+                it.name.replace("'", "\\'")
+            )
         )
     }
     database.closeConnection()
 }
 
 private fun getQueryStatementToSetTeamQuality(database: DatabaseExt, club: String): String {
-    val globalMedia: Float
     var avgTeam = 0f
-    val quality: Float
-
     val resultSetMedia = database.select(
         "SELECT AVG(lol) FROM " +
                 "(SELECT DISTINCT p.name AS xd, p.potential AS lol" +
                 " FROM players p WHERE p.club LIKE '${club}' ORDER BY p.potential DESC LIMIT 18) t"
     )
-    globalMedia = if (resultSetMedia.next()) resultSetMedia.getFloat(1) else 0f
+    val globalMedia = if (resultSetMedia.next()) resultSetMedia.getFloat(1) else 0f
     resultSetMedia.close()
-    println("Media Global de $club es $globalMedia")
-
 
     val benchPlayers: MutableList<Int> = getPlayersPotential(
         database, BENCH_POTENTIAL(club)
     )
     benchPlayers.forEach { if (it > globalMedia) avgTeam += ((it - globalMedia) / 2) }
 
-
     val titularPlayers: MutableList<Int> = getPlayersPotential(
         database, TITULAR_POTENTIAL(club)
     )
     titularPlayers.forEach { if (it > globalMedia) avgTeam += (it - globalMedia) }
     avgTeam = globalMedia + (avgTeam * 0.1f)
-    println("Media AVG (18 mejores jugadores) de $club es $avgTeam")
-    println("${globalMedia.toInt()}")
 
     val media = globalMedia.toInt()
-    quality = if (media.between(81, 99)) {
+    val quality = getQuality(media)
+    return "UPDATE teams SET average = $globalMedia, eleven_average = $avgTeam, quality = $quality" +
+            " WHERE name LIKE '${club}'"
+}
+
+private fun getQuality(media: Int): Float {
+    return if (media.between(81, 99)) {
         5f
     } else if (media.between(77, 80)) {
         4.5f
@@ -70,8 +71,6 @@ private fun getQueryStatementToSetTeamQuality(database: DatabaseExt, club: Strin
     } else {
         0f
     }
-    return "UPDATE teams SET average = $globalMedia, eleven_average = $avgTeam, quality = $quality" +
-            " WHERE name LIKE '${club}'"
 }
 
 private fun getPlayersPotential(database: DatabaseExt, sql: String): MutableList<Int> {
